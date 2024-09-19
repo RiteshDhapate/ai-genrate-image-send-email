@@ -23,11 +23,11 @@ init();
 // send email route
 app.post("/send-email", async function (req, res) {
   try {
-      const { email, message } = req.body;
-         const aiImageGeneratorData = await fetch(
-           "https://quote-generator-90rw.onrender.com/generate-quote-image"
-         );
-         const aiGeneratedImageResponse = await aiImageGeneratorData.json();
+    const { email, message } = req.body;
+    const aiImageGeneratorData = await fetch(
+      "https://quote-generator-90rw.onrender.com/generate-quote-image"
+    );
+    const aiGeneratedImageResponse = await aiImageGeneratorData.json();
     const result = await sendEmails(
       [email],
       message,
@@ -86,7 +86,7 @@ cron.schedule("0 9 * * *", async () => {
       // Send emails to all addresses
       const result = await sendEmails(
         emailAddresses,
-        "Daily update message",
+        " ",
         aiGeneratedImageResponse?.cloudinaryResponse?.secure_url
       );
       if (result) {

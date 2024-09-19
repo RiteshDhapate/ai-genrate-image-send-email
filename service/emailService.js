@@ -44,7 +44,7 @@ export async function sendEmails(emails, message,imageUrl) {
             <img src=${imageUrl} alt="Header Image">
           </div>
           <div class="content">
-            <h1>Hello World</h1>
+            <h1>your daily motivational quotes</h1>
             <p>${message}</p>
           </div>
         </div>
