@@ -56,7 +56,7 @@ export async function sendEmails(emails, message,imageUrl) {
     const { data, error } = await resend.emails.send({
       from: "aiagentcoach@teamlumio.ai",
       to: [...emails],
-      subject: "Hello World",
+      subject: "Here is your daily motivation from AgentCoach.ai! 🚀",
       html: htmlTemplate,
     });
 
