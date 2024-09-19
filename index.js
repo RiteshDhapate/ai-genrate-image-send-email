@@ -103,6 +103,6 @@ cron.schedule("0 9 * * *", async () => {
 });
 
 // listen the app on 2000 port
-app.listen(2000, () => {
+app.listen(process.env.PORT, () => {
   console.log("server listening on port 2000");
 });
