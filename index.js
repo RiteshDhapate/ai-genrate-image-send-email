@@ -23,6 +23,7 @@ async function init() {
 init();
 
 // send email route
+// Send email route
 app.post("/send-email", async function (req, res) {
   try {
     const { email } = req.body;
@@ -30,20 +31,27 @@ app.post("/send-email", async function (req, res) {
       "https://quote-generator-90rw.onrender.com/generate-quote-image"
     );
     const aiGeneratedImageResponse = await aiImageGeneratorData.json();
+    
     const result = await sendEmails(
       [email],
       aiGeneratedImageResponse?.message,
       aiGeneratedImageResponse?.cloudinaryResponse?.secure_url,
       aiGeneratedImageResponse?.subject
     );
+
     if (!result) {
-      res.status(400).json({ message: "email send unsuccessful" });
+      return res.status(400).json({ message: "Email send unsuccessful" });
     }
-    res.json({ message: "email send successful", data: result });
+
+    // Add email to the database if sent successfully
+    await Email.create({ email });
+
+    res.json({ message: "Email sent successfully", data: result });
   } catch (error) {
-    res.status(500).json({ message: "server error" });
+    res.status(500).json({ message: "Server error" });
   }
 });
+
 
 // add emails
 app.post("/add-emails", async (req, res) => {
@@ -72,9 +80,24 @@ app.post("/add-emails", async (req, res) => {
     }
   }
 });
+function getCurrentTime() {
+  const now = new Date();
+  const hours = now.getHours();
+  const minutes = now.getMinutes();
+  const ampm = hours >= 12 ? 'PM' : 'AM';
 
-// Schedule the task to run daily at 9 AM
-cron.schedule("0 9 * * *", async () => {
+  // Convert to 12-hour format
+  const formattedHours = hours % 12 || 12; // If hours is 0, set it to 12
+  const formattedMinutes = minutes < 10 ? '0' + minutes : minutes; // Add leading zero if needed
+
+  return `${formattedHours}:${formattedMinutes} ${ampm}`;
+}
+
+// Example usage
+const currentTime = getCurrentTime();
+console.log(currentTime); // Outputs: "11:24 PM"
+
+const sendEmailsEveryDay = async () => {
   console.log("Running daily email task...");
 
   try {
@@ -104,7 +127,22 @@ cron.schedule("0 9 * * *", async () => {
   } catch (error) {
     console.error("Error during scheduled email task:", error);
   }
-});
+}
+
+let ifSent = false;
+  setInterval(() => {
+    const currentTime = getCurrentTime();
+    if (currentTime == "1:20 PM" && ifSent==false) {
+      ifSent = true;
+      console.log("cll");
+      sendEmailsEveryDay();
+    }
+
+    if (currentTime == "1:22 PM" && ifSent==true) {
+       console.log("set false");
+       ifSent = false;
+     }
+  }, 1000);
 
 // listen the app on 2000 port
 app.listen(process.env.PORT || 2000, () => {
