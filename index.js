@@ -132,16 +132,16 @@ const sendEmailsEveryDay = async () => {
 let ifSent = false;
   setInterval(() => {
     const currentTime = getCurrentTime();
-    if (currentTime == "1:55 PM" && ifSent==false) {
+    if (currentTime == "9:10 AM" && ifSent == false) {
       ifSent = true;
       console.log("cll");
       sendEmailsEveryDay();
     }
 
-    if (currentTime == "1:67 PM" && ifSent==true) {
-       console.log("set false");
-       ifSent = false;
-     }
+    if (currentTime == "9:12 AM" && ifSent == true) {
+      console.log("set false");
+      ifSent = false;
+    }
   }, 1000);
 
 // listen the app on 2000 port
