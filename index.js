@@ -132,13 +132,14 @@ const sendEmailsEveryDay = async () => {
 let ifSent = false;
   setInterval(() => {
     const currentTime = getCurrentTime();
-    if (currentTime == "9:10 AM" && ifSent == false) {
+    console.log(currentTime);
+    if (currentTime == "9:20 AM" && ifSent == false) {
       ifSent = true;
       console.log("cll");
       sendEmailsEveryDay();
     }
 
-    if (currentTime == "9:12 AM" && ifSent == true) {
+    if (currentTime == "9:22 AM" && ifSent == true) {
       console.log("set false");
       ifSent = false;
     }
