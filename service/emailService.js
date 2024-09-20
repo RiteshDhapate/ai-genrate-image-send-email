@@ -2,7 +2,7 @@ import { Resend } from "resend";
 
 const resend = new Resend("re_aa2tFQRt_4mC4Rjc6V3Wmk8Cfywscxkxd");
 
-export async function sendEmails(emails, message,imageUrl) {
+export async function sendEmails(emails, message, imageUrl, subject) {
   try {
     // Define your HTML template
     const htmlTemplate = `
@@ -56,7 +56,7 @@ export async function sendEmails(emails, message,imageUrl) {
     const { data, error } = await resend.emails.send({
       from: "aiagentcoach@teamlumio.ai",
       to: [...emails],
-      subject: "Here is your daily motivation from AgentCoach.ai! 🚀",
+      subject: subject,
       html: htmlTemplate,
     });
 

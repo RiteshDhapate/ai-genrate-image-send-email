@@ -6,7 +6,9 @@ import { sendEmails } from "./service/emailService.js";
 import cron from "node-cron";
 import { connectDb } from "./db/dbConnect.js";
 import Email from "./models/emails.model.js";
+import dotenv from "dotenv";
 
+dotenv.config();
 const app = express();
 
 // express middleware
@@ -23,15 +25,16 @@ init();
 // send email route
 app.post("/send-email", async function (req, res) {
   try {
-    const { email, message } = req.body;
+    const { email } = req.body;
     const aiImageGeneratorData = await fetch(
       "https://quote-generator-90rw.onrender.com/generate-quote-image"
     );
     const aiGeneratedImageResponse = await aiImageGeneratorData.json();
     const result = await sendEmails(
       [email],
-      message,
-      aiGeneratedImageResponse?.cloudinaryResponse?.secure_url
+      aiGeneratedImageResponse?.message,
+      aiGeneratedImageResponse?.cloudinaryResponse?.secure_url,
+      aiGeneratedImageResponse?.subject
     );
     if (!result) {
       res.status(400).json({ message: "email send unsuccessful" });
@@ -86,8 +89,9 @@ cron.schedule("0 9 * * *", async () => {
       // Send emails to all addresses
       const result = await sendEmails(
         emailAddresses,
-        " ",
-        aiGeneratedImageResponse?.cloudinaryResponse?.secure_url
+        aiGeneratedImageResponse?.message,
+        aiGeneratedImageResponse?.cloudinaryResponse?.secure_url,
+        aiGeneratedImageResponse?.subject
       );
       if (result) {
         console.log("Emails sent successfully.");
@@ -103,6 +107,6 @@ cron.schedule("0 9 * * *", async () => {
 });
 
 // listen the app on 2000 port
-app.listen(process.env.PORT, () => {
-  console.log("server listening on port 2000");
+app.listen(process.env.PORT || 2000, () => {
+  console.log(`server listening on port ${process.env.PORT}`);
 });
