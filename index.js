@@ -50,6 +50,7 @@ app.post("/send-email", async function (req, res) {
 
     // Add email to the database if sent successfully
     await Email.create({ email });
+    console.log("new email add ",email);
 
     res.json({ message: "Email sent successfully", data: result });
   } catch (error) {
