@@ -22,6 +22,11 @@ async function init() {
 
 init();
 
+
+app.get("/",(req,res)=>{
+  res.send("server running..");
+})
+
 // send email route
 // Send email route
 app.post("/send-email", async function (req, res) {
