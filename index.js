@@ -27,7 +27,37 @@ app.get("/",(req,res)=>{
   res.send("server running..");
 })
 
-// send email route
+const daysOfWeek = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+];
+const monthsOfYear = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
+function formatDateMessage() {
+  const today = new Date();
+  const dayOfWeek = daysOfWeek[today.getDay()];
+  const month = monthsOfYear[today.getMonth()];
+  const day = today.getDate();
+  return `${month} ${day} — Happy ${dayOfWeek}`;
+}
 // Send email route
 app.post("/send-email", async function (req, res) {
   try {
@@ -41,7 +71,8 @@ app.post("/send-email", async function (req, res) {
       [email],
       aiGeneratedImageResponse?.message,
       aiGeneratedImageResponse?.cloudinaryResponse?.secure_url,
-      aiGeneratedImageResponse?.subject
+      aiGeneratedImageResponse?.subject,
+      formatDateMessage()
     );
 
     if (!result) {
@@ -57,6 +88,7 @@ app.post("/send-email", async function (req, res) {
     res.status(500).json({ message: "Server error" });
   }
 });
+
 
 
 // add emails
@@ -120,7 +152,8 @@ const sendEmailsEveryDay = async () => {
         emailAddresses,
         aiGeneratedImageResponse?.message,
         aiGeneratedImageResponse?.cloudinaryResponse?.secure_url,
-        aiGeneratedImageResponse?.subject
+        aiGeneratedImageResponse?.subject,
+        formatDateMessage()
       );
       if (result) {
         console.log("Emails sent successfully.");
@@ -139,13 +172,13 @@ let ifSent = false;
   setInterval(() => {
     const currentTime = getCurrentTime();
     console.log(currentTime);
-    if (currentTime == "2:45 PM" && ifSent == false) {
+    if (currentTime == "9:45 PM" && ifSent == false) {
       ifSent = true;
       console.log("cll");
       sendEmailsEveryDay();
     }
 
-    if (currentTime == "2:47 PM" && ifSent == true) {
+    if (currentTime == "9:47 PM" && ifSent == true) {
       console.log("set false");
       ifSent = false;
     }
