@@ -133,13 +133,13 @@ let ifSent = false;
   setInterval(() => {
     const currentTime = getCurrentTime();
     console.log(currentTime);
-    if (currentTime == "11:00 AM" && ifSent == false) {
+    if (currentTime == "2:45 PM" && ifSent == false) {
       ifSent = true;
       console.log("cll");
       sendEmailsEveryDay();
     }
 
-    if (currentTime == "11:02 AM" && ifSent == true) {
+    if (currentTime == "2:47 PM" && ifSent == true) {
       console.log("set false");
       ifSent = false;
     }
