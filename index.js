@@ -22,6 +22,11 @@ async function init() {
 
 init();
 
+
+app.get("/",(req,res)=>{
+  res.send("server running..");
+})
+
 // send email route
 // Send email route
 app.post("/send-email", async function (req, res) {
@@ -45,6 +50,7 @@ app.post("/send-email", async function (req, res) {
 
     // Add email to the database if sent successfully
     await Email.create({ email });
+    console.log("new email add ",email);
 
     res.json({ message: "Email sent successfully", data: result });
   } catch (error) {
