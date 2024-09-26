@@ -213,7 +213,7 @@ let emailSentTime = "3:40 PM";
 let ifSent = false;
 setInterval(() => {
   const currentTime = getCurrentTime();
-  console.log(currentTime);
+  console.log(currentTime," => ",emailSentTime);
   if (currentTime == emailSentTime && ifSent == false) {
     ifSent = true;
     console.log("cll");
