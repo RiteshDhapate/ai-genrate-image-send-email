@@ -742,16 +742,16 @@ export async function sendEmails(
                                                     text-decoration: underline;
                                                   "
                                                   >https://agentcoach.teamlumio.ai</a
-                                                ><br />
-                                                 <p
-                                                  style="font-family: &#39;Inter&#39;, sans-serif; color: #515856; font-size: 12px; line-height: 150%; margin-bottom: 6px; display: inline-block;"
                                                 >
+                                              </p>
+                                              <div>
+                                                <p
+                                                  style="font-family: &#39;Inter&#39;, sans-serif; color: #515856; font-size: 12px; line-height: 150%; margin-bottom: 6px; display: inline-block;"
+                                                  >
                                                   Original material copyright
                                                   2024.
                                                 </p>
-                                               
-                                              </p>
-
+                                              </div>
                                               <table
                                                 width="100%"
                                                 cellpadding="0"
