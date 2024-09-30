@@ -4,9 +4,10 @@ import { sendEmails } from "./service/emailService.js";
 import { connectDb } from "./db/dbConnect.js";
 import Email from "./models/emails.model.js";
 import dotenv from "dotenv";
-import { insertDailyEmail } from "./service/insertNewFututerEmail.js";
+import { generateFutureDate, insertDailyEmail } from "./service/insertNewFututerEmail.js";
 import { deleteDailyEmail } from "./service/deleteDailyEmail.js";
 import DailyEmail from "./models/futureDailyEmails.js";
+import WhichDaySent from "./models/whichDaySent.js";
 
 dotenv.config();
 const app = express();
@@ -133,7 +134,6 @@ function getCurrentTime() {
   return `${formattedHours}:${formattedMinutes} ${ampm}`;
 }
 
-
 // Example usage
 const currentTime = getCurrentTime();
 console.log(currentTime); // Outputs: "11:24 PM"
@@ -154,7 +154,7 @@ const sendEmailsEveryDay = async () => {
       DailyEmailTemplet[0].message,
       DailyEmailTemplet[0].image,
       DailyEmailTemplet[0].title,
-      DailyEmailTemplet[0].scheduledDate
+      generateFutureDate(0)
     );
     await insertDailyEmail();
     console.log("deleteing daily email [0] index");
@@ -164,7 +164,6 @@ const sendEmailsEveryDay = async () => {
   }
 };
 // sendEmailsEveryDay();
-
 
 function addTwoMinutes(timeString) {
   // Parse the time string
@@ -209,15 +208,37 @@ function addTwoMinutes(timeString) {
   return `${formattedHours}:${formattedMinutes} ${newPeriod}`;
 }
 
-let emailSentTime = "3:40 PM";
+const getCurrentDay = () => {
+  const daysOfWeek = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  const today = new Date(); // Get the current date
+  const dayIndex = today.getDay(); // Get the index of the day (0 for Sunday, 1 for Monday, etc.)
+  return daysOfWeek[dayIndex]; // Return the name of the day
+};
+
+let emailSentTime = "4:26 PM";
 let ifSent = false;
-setInterval(() => {
+setInterval(async () => {
   const currentTime = getCurrentTime();
-  console.log(currentTime," => ",emailSentTime);
+  console.log(currentTime, " => ", emailSentTime);
   if (currentTime == emailSentTime && ifSent == false) {
-    ifSent = true;
-    console.log("cll");
-    sendEmailsEveryDay();
+    const currentDay = getCurrentDay();
+    const result = await WhichDaySent.findOne();
+    if (result.days.includes(currentDay)) {
+      ifSent = true;
+      console.log("cll");
+      sendEmailsEveryDay();
+      console.log(`Emails are scheduled to be sent on ${currentDay}`);
+    } else {
+      console.log(`No emails scheduled for ${currentDay}`);
+    }
   }
 
   if (currentTime == addTwoMinutes(emailSentTime) && ifSent == true) {
@@ -236,8 +257,7 @@ app.post("/change-auto-email-sent-time", (req, res) => {
   }
 });
 
-
-app.get("/newsletter-data", async(req, res) => {
+app.get("/newsletter-data", async (req, res) => {
   try {
     const DailyEmailTemplet = await DailyEmail.find();
     const currentTime = getCurrentTime();
@@ -245,9 +265,64 @@ app.get("/newsletter-data", async(req, res) => {
       DailyEmailTemplet,
       serverCurrentTime: currentTime,
       emailSentTime,
+      currentDay: getCurrentDay(),
     });
   } catch (error) {
     res.status(500).send(error.message);
+  }
+});
+
+app.post("/set-which-days-email-sent", async (req, res) => {
+  try {
+    const { days } = req.body;
+
+    // Validate that days is an array and contains valid days
+    if (
+      !Array.isArray(days) ||
+      days.some(
+        (day) =>
+          ![
+            "Sunday",
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday",
+          ].includes(day)
+      )
+    ) {
+      return res.status(400).json({ error: "Invalid days provided" });
+    }
+
+    // Create a new record or update an existing one (you can adjust logic here as needed)
+    const result = await WhichDaySent.findOneAndUpdate(
+      {}, // Assuming there's only one document for which days emails are sent
+      { days },
+      { new: true, upsert: true } // Create a new document if one doesn't exist
+    );
+
+    res.status(200).json({ message: "Days successfully updated", result });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+app.get("/get-which-days-email-sent", async (req, res) => {
+  try {
+    // Fetch the document that contains the days
+    const result = await WhichDaySent.findOne();
+
+    if (!result) {
+      return res.status(404).json({ message: "No days found" });
+    }
+
+    // Respond with the days
+    res.status(200).json({ days: result.days });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -268,6 +343,7 @@ app.delete("/email/:id", async (req, res) => {
     return res.status(500).json({ message: "Server error", error });
   }
 });
+
 
 // listen the app on 2000 port
 app.listen(process.env.PORT || 2000, () => {

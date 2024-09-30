@@ -1,7 +1,7 @@
 import DailyEmail from "../models/futureDailyEmails.js";
 
 
-function generateFutureDate(daysToAdd) {
+export function generateFutureDate(daysToAdd) {
   // Array of month names
   const months = [
     "January",
