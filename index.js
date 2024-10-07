@@ -27,7 +27,7 @@ async function init() {
 init();
 
 app.get("/", (req, res) => {
-  res.send("server running update..");
+  res.send("server running update new..");
 });
 
 const daysOfWeek = [
