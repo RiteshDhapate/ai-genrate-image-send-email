@@ -4,7 +4,10 @@ import { sendEmails } from "./service/emailService.js";
 import { connectDb } from "./db/dbConnect.js";
 import Email from "./models/emails.model.js";
 import dotenv from "dotenv";
-import { generateFutureDate, insertDailyEmail } from "./service/insertNewFututerEmail.js";
+import {
+  generateFutureDate,
+  insertDailyEmail,
+} from "./service/insertNewFututerEmail.js";
 import { deleteDailyEmail } from "./service/deleteDailyEmail.js";
 import DailyEmail from "./models/futureDailyEmails.js";
 import WhichDaySent from "./models/whichDaySent.js";
@@ -223,7 +226,7 @@ const getCurrentDay = () => {
   return daysOfWeek[dayIndex]; // Return the name of the day
 };
 
-let emailSentTime = "4:26 PM";
+let emailSentTime = "7:19 PM";
 let ifSent = false;
 setInterval(async () => {
   const currentTime = getCurrentTime();
@@ -343,7 +346,6 @@ app.delete("/email/:id", async (req, res) => {
     return res.status(500).json({ message: "Server error", error });
   }
 });
-
 
 // listen the app on 2000 port
 app.listen(process.env.PORT || 2000, () => {
