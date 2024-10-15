@@ -104,10 +104,10 @@ app.post("/add-emails", async (req, res) => {
     }
 
     const emailDocs = emails.map((email) => ({ email }));
-
+      console.log(emailDocs);
     // Insert emails into the database
-    await Email.insertMany(emailDocs, { ordered: false });
-
+  const data=  await Email.insertMany(emailDocs, { ordered: false });
+    console.log(data);
     res.status(200).json({ message: "Emails added successfully" });
   } catch (error) {
     if (error.code === 11000) {
@@ -146,27 +146,36 @@ const sendEmailsEveryDay = async () => {
     console.log("finding email template on db");
     const DailyEmailTemplet = await DailyEmail.find();
     console.log(DailyEmailTemplet[0]);
-    console.log("finding emails on db");
-    const emails = await Email.find().select("email -_id").lean();
-    const emailAddresses = emails.map((doc) => doc.email);
-    // await sendEmails(emails, message, imageUrl, subject, formatDateMessage);
-    console.log("sending daily emails");
 
-    await sendEmails(
-      emailAddresses,
-      DailyEmailTemplet[0].message,
-      DailyEmailTemplet[0].image,
-      DailyEmailTemplet[0].title,
-      generateFutureDate(0)
-    );
-    await insertDailyEmail();
-    console.log("deleteing daily email [0] index");
-    deleteDailyEmail(DailyEmailTemplet[0]._id);
+    console.log("finding emails on db");
+    const sevenDaysAgo = new Date();
+    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+
+    const emails = await Email.find({ createdAt: { $lte: sevenDaysAgo } })
+      .select("email -_id")
+      .lean();
+
+    if (emails.length > 0) {
+      const emailAddresses = emails.map((doc) => doc.email);
+      console.log("sending daily emails to users older than 7 days");
+      console.log(emailAddresses)
+      await sendEmails(
+        emailAddresses,
+        DailyEmailTemplet[0].message,
+        DailyEmailTemplet[0].image,
+        DailyEmailTemplet[0].title,
+        generateFutureDate(0)
+      );
+      await insertDailyEmail();
+      console.log("deleting daily email [0] index");
+      deleteDailyEmail(DailyEmailTemplet[0]._id);
+    } else {
+      console.log("No users older than 7 days found. Skipping send.");
+    }
   } catch (error) {
     console.log(error);
   }
 };
-// sendEmailsEveryDay();
 
 function addTwoMinutes(timeString) {
   // Parse the time string
@@ -226,7 +235,7 @@ const getCurrentDay = () => {
   return daysOfWeek[dayIndex]; // Return the name of the day
 };
 
-let emailSentTime = "7:19 PM";
+let emailSentTime = "5:49 PM";
 let ifSent = false;
 setInterval(async () => {
   const currentTime = getCurrentTime();

@@ -431,14 +431,6 @@ export async function sendEmails(
                                         >
                                       </h1>
                                       <p
-                                        style="font-family: &#39;Inter&#39;, sans-serif; color: #515856; font-size: 16px; line-height: 165%; margin-top: 0; margin-bottom: 10px;"
-                                      >
-                                        <strong
-                                          >Daily Affirmations to Heal and
-                                          Inspire</strong
-                                        >
-                                      </p>
-                                      <p
                                         style="font-family: &#39;Inter&#39;, sans-serif; color: #515856; font-size: 16px; line-height: 165%; margin-top: 0; margin-bottom: 0;"
                                       >
                                         <strong
@@ -592,13 +584,18 @@ export async function sendEmails(
                                       >
                                       ${message}
                                       </p>
+                                      <br />
+                                      <br />
+                                      <h5>prompt of the day : Hello AgentCoach.AI</h5>
                                     </td>
                                   </tr>
                                   <tr>
                                     <td
                                       height="20"
                                       style="line-height: 20px"
-                                    ></td>
+                                    >
+                                    
+                                    </td>
                                   </tr>
                                 </tbody>
                               </table>
@@ -728,7 +725,7 @@ export async function sendEmails(
                                               <h5
                                                 style="font-family: &#39;Inter&#39;, sans-serif; color: #000000; font-size: 15px; line-height: 125%; font-weight: bold; font-style: normal; text-decoration: none; margin-bottom: 6px;"
                                               >
-                                                Agent Coach AI
+                                                AgentCoach.AI
                                               </h5>
                                               <p
                                                 style="font-family: &#39;Inter&#39;, sans-serif; color: #515856; font-size: 12px; line-height: 150%; margin-bottom: 6px; display: inline-block;"
