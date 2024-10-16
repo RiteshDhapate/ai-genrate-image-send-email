@@ -235,7 +235,7 @@ const getCurrentDay = () => {
   return daysOfWeek[dayIndex]; // Return the name of the day
 };
 
-let emailSentTime = "7:40 AM";
+let emailSentTime = "7:48 AM";
 let ifSent = false;
 setInterval(async () => {
   const currentTime = getCurrentTime();
@@ -248,11 +248,13 @@ setInterval(async () => {
       console.log("cll");
       sendEmailsEveryDay();
       console.log(`Emails are scheduled to be sent on ${currentDay}`);
+      ifSent = true;
     } else {
       console.log(`No emails scheduled for ${currentDay}`);
     }
   }
 
+  console.log("set false tilem ",addTwoMinutes(emailSentTime));
   if (currentTime == addTwoMinutes(emailSentTime) && ifSent == true) {
     console.log("set false");
     ifSent = false;
