@@ -427,7 +427,7 @@ export async function sendEmails(
                                         style="font-family: &#39;Inter&#39;, sans-serif; color: #000000; font-size: 36px; line-height: 125%; font-weight: bold; font-style: normal; text-decoration: none; ;margin-bottom: 10px;"
                                       >
                                         <span style="color: rgb(178, 178, 178)"></span>
-                                          Agent Coach AI</span
+                                          AgentCoach.AI</span
                                         >
                                       </h1>
                                       <p
