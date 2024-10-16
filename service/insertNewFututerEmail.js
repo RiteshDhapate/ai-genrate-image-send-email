@@ -1,6 +1,5 @@
 import DailyEmail from "../models/futureDailyEmails.js";
 
-
 export function generateFutureDate(daysToAdd) {
   // Array of month names
   const months = [
@@ -40,7 +39,7 @@ export async function insertDailyEmail() {
       "https://quote-generator-90rw.onrender.com/generate-quote-image"
     );
     const aiGeneratedImageResponse = await aiImageGeneratorData.json();
-        console.log("Ai generated template :", aiGeneratedImageResponse);
+    console.log("Ai generated template :", aiGeneratedImageResponse);
     // Create a new DailyEmail document
     const newDailyEmail = new DailyEmail({
       title: aiGeneratedImageResponse?.subject,

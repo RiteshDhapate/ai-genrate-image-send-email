@@ -104,9 +104,9 @@ app.post("/add-emails", async (req, res) => {
     }
 
     const emailDocs = emails.map((email) => ({ email }));
-      console.log(emailDocs);
+    console.log(emailDocs);
     // Insert emails into the database
-  const data=  await Email.insertMany(emailDocs, { ordered: false });
+    const data = await Email.insertMany(emailDocs, { ordered: false });
     console.log(data);
     res.status(200).json({ message: "Emails added successfully" });
   } catch (error) {
@@ -158,7 +158,7 @@ const sendEmailsEveryDay = async () => {
     if (emails.length > 0) {
       const emailAddresses = emails.map((doc) => doc.email);
       console.log("sending daily emails to users older than 7 days");
-      console.log(emailAddresses)
+      console.log(emailAddresses);
       await sendEmails(
         emailAddresses,
         DailyEmailTemplet[0].message,
