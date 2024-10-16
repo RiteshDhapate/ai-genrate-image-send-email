@@ -235,11 +235,11 @@ const getCurrentDay = () => {
   return daysOfWeek[dayIndex]; // Return the name of the day
 };
 
-let emailSentTime = "7:48 AM";
+let emailSentTime = "8:15 AM";
 let ifSent = false;
 setInterval(async () => {
   const currentTime = getCurrentTime();
-  console.log(currentTime, " => ", emailSentTime);
+  console.log(currentTime, " => ", emailSentTime," flag -->",ifSent);
   if (currentTime == emailSentTime && ifSent == false) {
     const currentDay = getCurrentDay();
     const result = await WhichDaySent.findOne();
@@ -248,17 +248,21 @@ setInterval(async () => {
       console.log("cll");
       sendEmailsEveryDay();
       console.log(`Emails are scheduled to be sent on ${currentDay}`);
-      ifSent = true;
+      setTimeout(() => {
+        ifSent=false;
+        console.log("flag set false");
+      }, 1000*60);
     } else {
       console.log(`No emails scheduled for ${currentDay}`);
     }
   }
 
-  console.log("set false tilem ",addTwoMinutes(emailSentTime));
-  if (currentTime == addTwoMinutes(emailSentTime) && ifSent == true) {
-    console.log("set false");
-    ifSent = false;
-  }
+// const setFalseTime=addTwoMinutes(emailSentTime)
+//   console.log("set false time",setFalseTime,ifSent,(currentTime == setFalseTime && ifSent == true));
+//   if ((currentTime == setFalseTime && ifSent == true)) {
+//     ifSent = false;
+//     console.log("set false");
+//   }
 }, 1000);
 
 app.post("/change-auto-email-sent-time", (req, res) => {
