@@ -11,6 +11,7 @@ import {
 import { deleteDailyEmail } from "./service/deleteDailyEmail.js";
 import DailyEmail from "./models/futureDailyEmails.js";
 import WhichDaySent from "./models/whichDaySent.js";
+import { clerkClient } from "./service/clerkClient.js";
 
 dotenv.config();
 const app = express();
@@ -149,18 +150,32 @@ const sendEmailsEveryDay = async () => {
 
     console.log("finding emails on db");
     const sevenDaysAgo = new Date();
-    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 0);
 
-    const emails = await Email.find({ createdAt: { $lte: sevenDaysAgo } })
-      .select("email -_id")
-      .lean();
+    // const emails = await Email.find({ createdAt: { $lte: sevenDaysAgo } })
+    //   .select("email -_id")
+    //   .lean();
+       
+
+
+
+     // Fetch Clerk users' emails that are 10 days old or older
+    const clerkUsers = await clerkClient.users.getUserList({
+      limit: 500, // Adjust this limit as needed
+    });
+
+    console.log(clerkUsers)
+    console.log(sevenDaysAgo,"--> ",new Date(new Number("1729200518931")))
+
+    const emails = clerkUsers.data
+      .filter(user => new Date(new Number(user.createdAt)) <= sevenDaysAgo)
+      .map(user => user.emailAddresses[0].emailAddress);
+    
+      console.log("clerk emails --> ",emails)
 
     if (emails.length > 0) {
-      const emailAddresses = emails.map((doc) => doc.email);
-      console.log("sending daily emails to users older than 7 days");
-      console.log(emailAddresses);
       await sendEmails(
-        emailAddresses,
+        emails,
         DailyEmailTemplet[0].message,
         DailyEmailTemplet[0].image,
         DailyEmailTemplet[0].title,
@@ -235,7 +250,7 @@ const getCurrentDay = () => {
   return daysOfWeek[dayIndex]; // Return the name of the day
 };
 
-let emailSentTime = "8:15 AM";
+let emailSentTime = "1:02 PM";
 let ifSent = false;
 setInterval(async () => {
   const currentTime = getCurrentTime();
@@ -359,6 +374,20 @@ app.delete("/email/:id", async (req, res) => {
       .json({ message: "Email deleted successfully", deletedEmail });
   } catch (error) {
     return res.status(500).json({ message: "Server error", error });
+  }
+});
+
+
+app.post("/delete-email-post",async(req, res) => {
+  try {
+    const {id}= req.body;
+    await insertDailyEmail();
+    console.log("deleting daily email ",id);
+     await deleteDailyEmail(id);
+     res.send("email post deleted successfully"); 
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({message:"email post deleted failed"});
   }
 });
 

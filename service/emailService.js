@@ -1,6 +1,12 @@
 import { Resend } from "resend";
+import { prompts } from "../constant/data.js";
 
 const resend = new Resend("re_aa2tFQRt_4mC4Rjc6V3Wmk8Cfywscxkxd");
+
+function getRandomPrompt() {
+  const randomIndex = Math.floor(Math.random() * prompts.length);
+  return prompts[randomIndex];
+}
 
 export async function sendEmails(
   emails,
@@ -586,7 +592,7 @@ export async function sendEmails(
                                       </p>
                                       <br />
                                       <br />
-                                      <h5>prompt of the day : Hello AgentCoach.AI</h5>
+                                      <h5>prompt of the day : ${getRandomPrompt()}</h5>
                                     </td>
                                   </tr>
                                   <tr>
