@@ -592,7 +592,7 @@ export async function sendEmails(
                                       </p>
                                       <br />
                                       <br />
-                                      <h5>prompt of the day : ${getRandomPrompt()}</h5>
+                                      <h2>Prompt of the day : ${getRandomPrompt()}</h2>
                                     </td>
                                   </tr>
                                   <tr>
