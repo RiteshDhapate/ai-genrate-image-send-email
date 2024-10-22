@@ -74,16 +74,14 @@ export async function sendEmails(
         text-rendering: optimizeLegibility;
       }
         .p-data{
-        text-align: center;
+
         margin-bottom:15px;
         }
         .p-main{
-        background-color:#E7E7E7;
         padding-top:32px;
         padding-bottom:24px;
         }
         .p-center{
-        text-align: center;
         }
       img {
         border: 0;
