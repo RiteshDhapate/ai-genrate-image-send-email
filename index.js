@@ -150,7 +150,7 @@ const sendEmailsEveryDay = async () => {
 
     console.log("finding emails on db");
     const sevenDaysAgo = new Date();
-    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 0);
+    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 9);
 
     // const emails = await Email.find({ createdAt: { $lte: sevenDaysAgo } })
     //   .select("email -_id")
