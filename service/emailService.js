@@ -73,6 +73,17 @@ export async function sendEmails(
         -moz-osx-font-smoothing: grayscale;
         text-rendering: optimizeLegibility;
       }
+        .p-data{
+        text-align: center;
+        margin-bottom:25px;
+        }
+        .p-main{
+        background-color:#E5E5E5;
+        padding:25px;
+        }
+        .p-center{
+        text-align: center;
+        }
       img {
         border: 0;
         outline: none;
@@ -592,7 +603,10 @@ export async function sendEmails(
                                       </p>
                                       <br />
                                       <br />
-                                      <h2>Prompt of the day : ${getRandomPrompt()}</h2>
+                                      <div class="p-main">
+                                      <h3 class="p-data">Prompt of the Day</h3>
+                                      <p class="p-center">"${getRandomPrompt()}"</p>
+                                      </div>
                                     </td>
                                   </tr>
                                   <tr>
