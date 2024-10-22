@@ -75,11 +75,12 @@ export async function sendEmails(
       }
         .p-data{
         text-align: center;
-        margin-bottom:25px;
+        margin-bottom:15px;
         }
         .p-main{
-        background-color:#E5E5E5;
-        padding:25px;
+        background-color:#E7E7E7;
+        padding-top:32px;
+        padding-bottom:24px;
         }
         .p-center{
         text-align: center;
