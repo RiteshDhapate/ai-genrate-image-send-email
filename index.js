@@ -67,7 +67,7 @@ app.post("/send-email", async function (req, res) {
   try {
     const { email } = req.body;
     const aiImageGeneratorData = await fetch(
-      "https://quote-generator-fimj.onrender.com/generate-quote-image"
+      "https://quote-generator-rvg3.onrender.com/generate-quote-image"
     );
     const aiGeneratedImageResponse = await aiImageGeneratorData.json();
 
