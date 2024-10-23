@@ -750,14 +750,14 @@ export async function sendEmails(
                                                 style="font-family: &#39;Inter&#39;, sans-serif; color: #515856; font-size: 12px; line-height: 150%; margin-bottom: 6px; display: inline-block;"
                                               >
                                                 <a
-                                                  href="https://agentcoach.teamlumio.ai"
+                                                  href="https://agentcoach.ai"
                                                   style="
                                                     color: #515856;
                                                     font-weight: normal;
                                                     font-style: normal;
                                                     text-decoration: underline;
                                                   "
-                                                  >https://agentcoach.teamlumio.ai</a
+                                                  >https://agentcoach.ai</a
                                                 >
                                               </p>
                                               <div>
@@ -841,20 +841,6 @@ export async function sendEmails(
                                               >
                                                 You received this email because
                                                 you signed up on our website.
-                                                You may 
-                        
-                                                <a
-                                                  href="https://agentcoach.teamlumio.ai"
-                                                  data-link-id="131296358128682404"
-                                                  style="
-                                                    color: #515856;
-                                                    font-weight: normal;
-                                                    font-style: normal;
-                                                    text-decoration: underline;
-                                                  "
-                                                  >unsubscribe at any time.</a
-                                                >
-                                              </p>
                                              
 
                                               
