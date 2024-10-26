@@ -36,7 +36,7 @@ export function generateFutureDate(daysToAdd) {
 export async function insertDailyEmail() {
   try {
     const aiImageGeneratorData = await fetch(
-      "https://quote-generator-90rw.onrender.com/generate-quote-image"
+      "https://quote-generator-rvg3.onrender.com/generate-quote-image"
     );
     const aiGeneratedImageResponse = await aiImageGeneratorData.json();
     console.log("Ai generated template :", aiGeneratedImageResponse);

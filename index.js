@@ -172,10 +172,9 @@ const sendEmailsEveryDay = async () => {
       .map(user => user.emailAddresses[0].emailAddress);
     
       console.log("clerk emails --> ",emails)
-
+    // ["riteshdhapate1@gmail.com"],
     if (emails.length > 0) {
       await sendEmails(
-        // ["riteshdhapate1@gmail.com"],
         emails,
         DailyEmailTemplet[0].message,
         DailyEmailTemplet[0].image,
@@ -251,7 +250,7 @@ const getCurrentDay = () => {
   return daysOfWeek[dayIndex]; // Return the name of the day
 };
 
-let emailSentTime = "8:03 PM";
+let emailSentTime = "1:03 PM";
 let ifSent = false;
 setInterval(async () => {
   const currentTime = getCurrentTime();
@@ -272,13 +271,6 @@ setInterval(async () => {
       console.log(`No emails scheduled for ${currentDay}`);
     }
   }
-
-// const setFalseTime=addTwoMinutes(emailSentTime)
-//   console.log("set false time",setFalseTime,ifSent,(currentTime == setFalseTime && ifSent == true));
-//   if ((currentTime == setFalseTime && ifSent == true)) {
-//     ifSent = false;
-//     console.log("set false");
-//   }
 }, 1000);
 
 app.post("/change-auto-email-sent-time", (req, res) => {
