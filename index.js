@@ -250,7 +250,7 @@ const getCurrentDay = () => {
   return daysOfWeek[dayIndex]; // Return the name of the day
 };
 
-let emailSentTime = "1:03 PM";
+let emailSentTime = "4:18 PM";
 let ifSent = false;
 setInterval(async () => {
   const currentTime = getCurrentTime();
