@@ -28,7 +28,6 @@ export async function sendEmails(
 >
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta
       name="viewport"
@@ -74,15 +73,14 @@ export async function sendEmails(
         text-rendering: optimizeLegibility;
       }
         .p-data{
-
         margin-bottom:15px;
-        }
+      }
         .p-main{
         padding-top:32px;
         padding-bottom:24px;
-        }
+      }
         .p-center{
-        }
+      }
       img {
         border: 0;
         outline: none;
@@ -235,9 +233,14 @@ export async function sendEmails(
           display: none !important;
         }
       }
+      img.logo {
+        display: block;
+        margin: 0 auto;
+        max-width: 100%;
+        height: auto;
+      }
     </style>
 
-    
     <style type="text/css">
       @media screen {
         body {
@@ -439,13 +442,9 @@ export async function sendEmails(
                                   </tr>
                                   <tr>
                                     <td class="row" style="padding: 0 50px">
-                                      <h1
-                                        style="font-family: &#39;Inter&#39;, sans-serif; color: #000000; font-size: 36px; line-height: 125%; font-weight: bold; font-style: normal; text-decoration: none; ;margin-bottom: 10px;"
-                                      >
-                                        <span style="color: rgb(178, 178, 178)"></span>
-                                          AgentCoach.AI</span
-                                        >
-                                      </h1>
+                                      <div style="text-align: center; margin-bottom: 20px;">
+                                         <img src="https://materials-server-bucket.s3.ap-south-1.amazonaws.com/black.png" alt="AgentPartner.AI" style="width: 200px; margin: 0 auto; display: block; margin-bottom: 20px;">
+                                      </div>
                                       <p
                                         style="font-family: &#39;Inter&#39;, sans-serif; color: #515856; font-size: 16px; line-height: 165%; margin-top: 0; margin-bottom: 0;"
                                       >
@@ -741,11 +740,11 @@ export async function sendEmails(
                                                 text-align: left !important;
                                               "
                                             >
-                                              <h5
-                                                style="font-family: &#39;Inter&#39;, sans-serif; color: #000000; font-size: 15px; line-height: 125%; font-weight: bold; font-style: normal; text-decoration: none; margin-bottom: 6px;"
-                                              >
-                                                AgentCoach.AI
-                                              </h5>
+                                                 <div style="margin-bottom: 20px;">
+                                            <img src="https://materials-server-bucket.s3.ap-south-1.amazonaws.com/black.png" alt="AgentPartner.AI" style="width: 200px; display: block; margin-bottom: 20px;">
+
+                                      </div>
+                                    
                                               <p
                                                 style="font-family: &#39;Inter&#39;, sans-serif; color: #515856; font-size: 12px; line-height: 150%; margin-bottom: 6px; display: inline-block;"
                                               >
@@ -762,7 +761,7 @@ export async function sendEmails(
                                               </p>
                                               <div>
                                                 <p
-                                                  style="font-family: &#39;Inter&#39;, sans-serif; color: #515856; font-size: 12px; line-height: 150%; margin-bottom: 6px; display: inline-block;"
+                                                  style="text-align:center; font-family: &#39;Inter&#39;, sans-serif; color: #515856; font-size: 12px; line-height: 150%; margin-bottom: 6px; display: inline-block;"
                                                   >
                                                   Original material copyright
                                                   2024.
@@ -830,14 +829,14 @@ export async function sendEmails(
                                               class="col"
                                               align="left"
                                               width="250"
-                                              valign="top"
+                                              valign="bottom"
                                               style="
                                                 text-align: left !important;
                                               "
                                             >
                                              
                                               <p
-                                                style="font-family: &#39;Inter&#39;, sans-serif; color: #515856; font-size: 12px; line-height: 150%; margin-bottom: 6px; display: inline-block;"
+                                                style="font-family: &#39;Inter&#39;, sans-serif; color: #515856; font-size: 12px; line-height: 150%; margin-bottom: 20px; display: inline-block;"
                                               >
                                                 You received this email because
                                                 you signed up on our website.
@@ -882,9 +881,7 @@ export async function sendEmails(
       </table>
     </div>
   </body>
-</html>
-
-    `;
+</html>`;
 
     // Send email using Resend
     const { data, error } = await resend.emails.send({
