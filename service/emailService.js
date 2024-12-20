@@ -443,7 +443,7 @@ export async function sendEmails(
                                         style="font-family: &#39;Inter&#39;, sans-serif; color: #000000; font-size: 36px; line-height: 125%; font-weight: bold; font-style: normal; text-decoration: none; ;margin-bottom: 10px;"
                                       >
                                         <span style="color: rgb(178, 178, 178)"></span>
-                                          AgentCoach.AI</span
+                                          AgentPartner.AI</span
                                         >
                                       </h1>
                                       <p
@@ -744,20 +744,20 @@ export async function sendEmails(
                                               <h5
                                                 style="font-family: &#39;Inter&#39;, sans-serif; color: #000000; font-size: 15px; line-height: 125%; font-weight: bold; font-style: normal; text-decoration: none; margin-bottom: 6px;"
                                               >
-                                                AgentCoach.AI
+                                                AgentPartner.AI
                                               </h5>
                                               <p
                                                 style="font-family: &#39;Inter&#39;, sans-serif; color: #515856; font-size: 12px; line-height: 150%; margin-bottom: 6px; display: inline-block;"
                                               >
                                                 <a
-                                                  href="https://agentcoach.ai"
+                                                  href="https://agentpartner.ai"
                                                   style="
                                                     color: #515856;
                                                     font-weight: normal;
                                                     font-style: normal;
                                                     text-decoration: underline;
                                                   "
-                                                  >https://agentcoach.ai</a
+                                                  >https://agentpartner.ai</a
                                                 >
                                               </p>
                                               <div>
