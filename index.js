@@ -167,15 +167,20 @@ const sendEmailsEveryDay = async () => {
     console.log(clerkUsers)
     console.log(sevenDaysAgo,"--> ",new Date(new Number("1729200518931")))
 
+    const allEmails = clerkUsers.data
+    .map(user => user.emailAddresses[0].emailAddress);
+
+    console.log("emails: ",allEmails);
+
     const emails = clerkUsers.data
       .filter(user => new Date(new Number(user.createdAt)) <= sevenDaysAgo)
       .map(user => user.emailAddresses[0].emailAddress);
     
-      console.log("clerk emails --> ",emails)
-    // ["riteshdhapate1@gmail.com"],
+      console.log("7 days completed users",emails)
+    // emails,
     if (emails.length > 0) {
       await sendEmails(
-        emails,
+        ["riteshdhapate1@gmail.com"],
         DailyEmailTemplet[0].message,
         DailyEmailTemplet[0].image,
         DailyEmailTemplet[0].title,
@@ -250,7 +255,7 @@ const getCurrentDay = () => {
   return daysOfWeek[dayIndex]; // Return the name of the day
 };
 
-let emailSentTime = "4:18 PM";
+let emailSentTime = "2:25 PM";
 let ifSent = false;
 setInterval(async () => {
   const currentTime = getCurrentTime();
