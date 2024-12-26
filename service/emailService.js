@@ -888,7 +888,7 @@ export async function sendEmails(
 
     // Send email using Resend
     const { data, error } = await resend.emails.send({
-      from: "aiagentcoach@teamlumio.ai",
+      from: "agentpartner@agentpartner.ai",
       to: ["jeffhammerberg@gmail.com"],
       bcc: [...emails],
       subject: subject,

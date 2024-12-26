@@ -180,7 +180,7 @@ const sendEmailsEveryDay = async () => {
     // emails,
     if (emails.length > 0) {
       await sendEmails(
-        ["riteshdhapate1@gmail.com"],
+        emails,
         DailyEmailTemplet[0].message,
         DailyEmailTemplet[0].image,
         DailyEmailTemplet[0].title,
