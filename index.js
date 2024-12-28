@@ -164,7 +164,7 @@ const sendEmailsEveryDay = async () => {
       limit: 500, // Adjust this limit as needed
     });
 
-    console.log(clerkUsers)
+    // console.log(clerkUsers)
     console.log(sevenDaysAgo,"--> ",new Date(new Number("1729200518931")))
 
     const allEmails = clerkUsers.data
@@ -257,19 +257,22 @@ const getCurrentDay = () => {
 
 let emailSentTime = "2:25 PM";
 let ifSent = false;
+let isTime = false;
 setInterval(async () => {
   const currentTime = getCurrentTime();
   console.log(currentTime, " => ", emailSentTime," flag -->",ifSent);
-  if (currentTime == emailSentTime && ifSent == false) {
+  if (currentTime == emailSentTime && ifSent == false && isTime == false) {
+    isTime = true;
     const currentDay = getCurrentDay();
     const result = await WhichDaySent.findOne();
     if (result.days.includes(currentDay)) {
       ifSent = true;
       console.log("cll");
-      sendEmailsEveryDay();
+      await sendEmailsEveryDay();
       console.log(`Emails are scheduled to be sent on ${currentDay}`);
       setTimeout(() => {
         ifSent=false;
+        isTime = false;
         console.log("flag set false");
       }, 1000*60);
     } else {
