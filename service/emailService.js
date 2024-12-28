@@ -1,7 +1,10 @@
 import { Resend } from "resend";
 import { prompts } from "../constant/data.js";
+import dotenv from "dotenv";
 
-const resend = new Resend("re_aa2tFQRt_4mC4Rjc6V3Wmk8Cfywscxkxd");
+dotenv.config();
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 function getRandomPrompt() {
   const randomIndex = Math.floor(Math.random() * prompts.length);
