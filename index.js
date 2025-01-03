@@ -144,6 +144,9 @@ console.log(currentTime); // Outputs: "11:24 PM"
 
 const sendEmailsEveryDay = async () => {
   try {
+    fetch(
+      "https://quote-generator-rvg3.onrender.com/generate-quote-image"
+    )
     console.log("finding email template on db");
     const DailyEmailTemplet = await DailyEmail.find();
     console.log(DailyEmailTemplet[0]);
@@ -186,6 +189,7 @@ const sendEmailsEveryDay = async () => {
         DailyEmailTemplet[0].title,
         generateFutureDate(0)
       );
+      await new Promise((resolve) => setTimeout(resolve, 40000));
       await insertDailyEmail();
       console.log("deleting daily email [0] index");
       deleteDailyEmail(DailyEmailTemplet[0]._id);
